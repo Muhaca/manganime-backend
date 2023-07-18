@@ -1,4 +1,4 @@
-const manganime = require('./controller-manganime');
+const manganime = require('./hot-seasson');
 
 module.exports = {
     manganime
