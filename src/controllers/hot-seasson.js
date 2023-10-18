@@ -10,7 +10,7 @@ module.exports = {
     // Ambil data semua hot seasson
     getDataHotSeasson(req, res) {
         pool.getConnection(function (err, connection) {
-            if (err) throw err;
+            if (err) console.log(err.code === "ECONNREFUSED" ? "Conection DB" : err);
             connection.query(
                 `
                 SELECT * FROM hot_seasson;
@@ -29,8 +29,9 @@ module.exports = {
     // Ambil data hot seasson berdasarkan ID
     getDataHotSeassonByID(req, res) {
         let id = req.params.sub_id;
+        let name = req.params.sub_name;
         pool.getConnection(function (err, connection) {
-            if (err) throw err;
+            if (err) console.log(err);
             connection.query(
                 `
                  SELECT * FROM hot_seasson WHERE sub_id = ?;
@@ -73,7 +74,7 @@ module.exports = {
             connection.release();
         });
     },
-    // Update data karyawan
+    // Update data Hot Seasson
     editDataHotSeasson(req, res) {
         let data = {
             sub_id: req.body.sub_id,
@@ -100,7 +101,7 @@ module.exports = {
             connection.release();
         });
     },
-    // Delete data karyawan
+    // Delete data Hot Seasson
     deleteDataHotSeasson(req, res) {
         let id = req.body.sub_id;
         pool.getConnection(function (err, connection) {
